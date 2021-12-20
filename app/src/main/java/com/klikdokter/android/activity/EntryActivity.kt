@@ -28,15 +28,28 @@ class EntryActivity : AppCompatActivity() {
     }
 
     private fun actionLogin(type: String) {
-        authViewModel?.actionLogin(
-            binding.etEmail.text.toString(),
-            binding.etPassword.text.toString()
-        )?.observe(this, {
-            if (it.first) {
-                finish()
-            } else {
-                Toast.makeText(this, it.second, Toast.LENGTH_SHORT).show()
-            }
-        })
+        if (type == "login") {
+            authViewModel?.actionLogin(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            )?.observe(this, {
+                if (it.first) {
+                    finish()
+                } else {
+                    Toast.makeText(this, it.second, Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else if (type == "register") {
+            authViewModel?.actionRegister(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            )?.observe(this, {
+                if (it.first) {
+                    finish()
+                } else {
+                    Toast.makeText(this, it.second, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 }

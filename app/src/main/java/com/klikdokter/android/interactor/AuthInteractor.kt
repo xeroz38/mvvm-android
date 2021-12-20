@@ -3,6 +3,7 @@ package com.klikdokter.android.interactor
 import androidx.lifecycle.MutableLiveData
 import com.klikdokter.android.api.AuthApi
 import com.klikdokter.android.api.RetrofitService
+import com.klikdokter.android.model.Token
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -31,9 +32,9 @@ class AuthInteractor {
             .addFormDataPart("email", email)
             .addFormDataPart("password", password)
             .build()
-        api?.actionLogin(requestBody)?.enqueue(object : Callback<ResponseBody> {
+        api?.actionLogin(requestBody)?.enqueue(object : Callback<Token> {
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<Token>, response: Response<Token>) {
                 if (response.isSuccessful) {
                     result.value = Pair(true, response.body().toString())
                 } else {
@@ -42,7 +43,31 @@ class AuthInteractor {
             }
 
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<Token>, t: Throwable) {
+                result.value = Pair(false, t.message.toString())
+            }
+        })
+        return result
+    }
+
+    fun actionRegister(email: String, password: String): MutableLiveData<Pair<Boolean, String>> {
+        val result = MutableLiveData<Pair<Boolean, String>>()
+        val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("email", email)
+            .addFormDataPart("password", password)
+            .build()
+        api?.actionRegister(requestBody)?.enqueue(object : Callback<Token> {
+
+            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                if (response.isSuccessful) {
+                    result.value = Pair(true, response.body().toString())
+                } else {
+                    result.value = Pair(false, response.errorBody().toString())
+                }
+            }
+
+
+            override fun onFailure(call: Call<Token>, t: Throwable) {
                 result.value = Pair(false, t.message.toString())
             }
         })

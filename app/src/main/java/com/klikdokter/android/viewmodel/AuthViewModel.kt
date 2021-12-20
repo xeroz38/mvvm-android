@@ -19,4 +19,11 @@ class AuthViewModel : ViewModel() {
         }
         return liveData
     }
+
+    fun actionRegister(email: String, password: String): LiveData<Pair<Boolean, String>> {
+        interactor?.let {
+            liveData = it.actionRegister(email, password)
+        }
+        return liveData
+    }
 }
