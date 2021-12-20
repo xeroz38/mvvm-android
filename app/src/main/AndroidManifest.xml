@@ -14,14 +14,14 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Klikdokterandroid.NoActionBar">
+            android:label="Klik Dokter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.EntryActivity" android:label="Register/Login"/>
     </application>
 
 </manifest>

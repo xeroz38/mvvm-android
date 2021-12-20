@@ -1,5 +1,6 @@
 package com.klikdokter.android.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,12 @@ class MainActivity : AppCompatActivity() {
 
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel?.init()
+        binding.tvLogin.setOnClickListener {
+            startActivity(Intent(this, EntryActivity::class.java).putExtra("type", "login"))
+        }
+        binding.tvRegister.setOnClickListener {
+            startActivity(Intent(this, EntryActivity::class.java).putExtra("type", "register"))
+        }
 
         getProductList()
     }

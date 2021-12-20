@@ -12,12 +12,12 @@ class ProductViewModel : ViewModel() {
 
     fun init() {
         interactor = ProductInteractor().getInstance()
-        interactor?.let {
-            liveData = it.getProductList()
-        }
     }
 
     fun getProductList(): LiveData<List<Product>> {
+        interactor?.let {
+            liveData = it.getProductList()
+        }
         return liveData
     }
 }
